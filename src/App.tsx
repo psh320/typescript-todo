@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import InputField from './components/InputField';
+import { Todo } from './model';
+import TodoList from './components/TodoList';
 
 let letter: string;
-
 let person1: Object;
 type Person = {
   name: string;
@@ -27,11 +28,23 @@ printName1 = (name) => {
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
-  console.log(todo)
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (todo) {
+      setTodos([...todos, {id: Date.now(), todo, isDone: false}])
+      setTodo("")
+    }
+  }
+
+  console.log(todo, todos)
   return (
     <div className="App">
       <span className="heading">Taskify</span>
-      <InputField todo={todo} setTodo={setTodo} />
+      <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd}/>
+      <TodoList todos={todos} setTodos={setTodos} />
     </div>
   );
 }
