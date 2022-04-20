@@ -1,6 +1,6 @@
 import React from 'react'
 import { Todo } from '../model';
-
+import './styles.css';
 interface Props {
     todos: Todo[];
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
@@ -9,7 +9,9 @@ interface Props {
 const TodoList: React.FC<Props> = ({todos, setTodos} : Props) => {
   return (
     <div className="todos">
-        TodoList
+        {todos.map(todo => (
+            <li>{todo.todo}</li>
+        ))}
     </div>
   )
 }
